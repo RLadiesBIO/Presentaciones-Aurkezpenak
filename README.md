@@ -14,3 +14,5 @@
    
    [2019-06-27_PrimerEncuentro_LehenTopaketa](https://github.com/RLadiesBIO/Presentaciones-Aurkezpenak/tree/master/2019-06-27_PrimerEncuentro_LehenTopaketa)
 
+
+[2019-09-30 Taller: Visualización de datos, introducción a ggplot2](https://rladiesbio.github.io/Taller2_ggplot2/)
