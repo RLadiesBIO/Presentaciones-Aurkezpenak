@@ -213,8 +213,8 @@ ggplot(our_data5) +
 ## 7. Etiquetas, titulos, leyendas... ------------------
 
 
-g <- ggplot(our_data3) +
-  aes(x = factor(Year), y = Life.Exp, color = Region) +
+g <- ggplot(data = our_data3,
+            mapping = aes(x = factor(Year), y = Life.Exp, color = Region)) +
   geom_point() +
   geom_line(aes(group = Country))
 
