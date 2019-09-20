@@ -19,18 +19,28 @@ ggplot(data = our_data) +
 ## Ejercicio: 
 ## - Anade otras esteticas al grafico: color, shape, size, alpha    
 ## - Prueba que pasa cuando se aplican esteticas a vars discretas/continuas    
-## - ?Que pasa cuando se usan varias esteticas?
+## - ¿Que pasa cuando se usan varias esteticas?
 ## ========================================================================
 
 ggplot(data = our_data) +
-  geom_point(mapping = aes(x = Employ.indu, y = Life.Exp, shape = Region, size = Income))
+  geom_point(mapping = aes(x = Employ.agri, y = Life.Exp, shape = Equal.remun))
 
-ggplot(...) +
-  geom_point(mapping = aes(x = ..., y = ..., color = ...))
+ggplot(data = our_data) +
+  geom_point(mapping = aes(x = Employ.agri, y = Life.Exp, color = Employ.serv))
 
-...
+ggplot(data = our_data) +
+  geom_point(mapping = aes(x = Employ.agri, y = Life.Exp, size = Income))
+# no tiene sentido utilizar variable categorica como size, excepto si la variable es ordinal
 
-##
+ggplot(data = our_data) +
+  geom_point(mapping = aes(x = Employ.agri, y = Life.Exp, alpha = Income))
+# no tiene sentido utilizar variable categorica como alpha, excepto si la variable es ordinal
+
+ggplot(data = our_data) +
+  geom_point(mapping = aes(x = Employ.agri, y = Life.Exp, color = Equal.remun, alpha = Income))
+
+ggplot(data = our_data) +
+  geom_point(mapping = aes(x = Employ.agri, y = Life.Exp, color = Equal.remun, size = Income)) # dos esteticas dos paletas
 
 
 ## 2. Esteticas en funcion del tipo de variable: ---------------------
@@ -56,7 +66,11 @@ ggplot(data = our_data) +
 ##   se dibujen de un color y los que tengan Employ.serv >= 70 de otro.
 ## ================================================================
 
+ggplot(data = our_data) + 
+  geom_point(aes(x = Employ.agri, y = Life.Exp, color = ifelse(Employ.serv < 70, 'blue', 'red')))
 
+ggplot(data = our_data) + 
+  geom_point(aes(x = Employ.agri, y = Life.Exp, color = Employ.serv < 70))
 ##
 
 
@@ -116,6 +130,7 @@ p + geom_bar(position='fill') # porcentaje
 ## facet_wrap(): facetas en funcion de una sola variable discreta        
 ## facet_grid(): funciones en funcion de 2 variables filas ~ columnas (. para no separar)       
 
+
 our_data2 <- filter(econAct, Gender ==  "F")
 ncountries <- length(unique(our_data2$Country))
 some_countries <- unique(our_data2$Country)[sample(1:ncountries, 12)]
@@ -140,14 +155,18 @@ g2 + facet_grid(Gender ~ Region)
 
 
 ## Ejercicio: 
-## - ?Que pasa cuando se utiliza una variable continua?
-## - Comprobad qu? pasa cuando se utiliza "." en vez de una de las variables 
+## - ¿Que pasa cuando se utiliza una variable continua?
+## - Comprobad que pasa cuando se utiliza "." en vez de una de las variables 
 ##   en la formula dentro de facet_grid().       
 ## =========================================================================
 
 ggplot(data = our_data) + 
   geom_point(aes(x = Employ.serv, y = Life.Exp)) + 
-  facet_grid(...) 
+  facet_grid(Income ~ .)
+
+ggplot(data = our_data) + 
+  geom_point(aes(x = Employ.serv, y = Life.Exp)) + 
+  facet_grid(. ~ Income)
 ##
 
 
@@ -161,8 +180,19 @@ ggplot(data = our_data) +
 
 econAct010 <- filter(econAct, Year == 2010)
 
+ggplot(econAct010) + 
+  geom_boxplot(aes(x = Gender, y = Employ.serv))
 
-##
+ggplot(econAct010) + 
+  geom_boxplot(aes(x = Gender, y = Employ.indu, fill = Gender))+
+  labs(x = NULL) +
+  facet_grid(. ~ Income)
+
+ggplot(econAct010) + 
+  geom_violin(aes(x = Gender, y = Employ.serv, scale = 'area', fill = Gender)) +
+  labs(x = NULL) +
+  facet_grid(. ~ Income)
+# all violins have the same area (before trimming the tails)
 
 
 ## Ejercicio: 
@@ -171,12 +201,22 @@ econAct010 <- filter(econAct, Year == 2010)
 ## ========================================================
 
 our_data5 <- filter(econAct, Gender == "F")
+ggplot(our_data5) + 
+  geom_line(aes(x = Year, y = Life.Exp, group = Country.iso3))
 
-
+ggplot(our_data5) + 
+  geom_line(aes(x = Year, y = Life.Exp, group = Country.iso3, color = Region), show.legend = FALSE) +
+  facet_grid(. ~ Region)
 ##
 
 
 ## 7. Etiquetas, titulos, leyendas... ------------------
+
+
+g <- ggplot(our_data3) +
+  aes(x = factor(Year), y = Life.Exp, color = Region) +
+  geom_point() +
+  geom_line(aes(group = Country))
 
 g + labs(x = "Year", 
          y = "Esperanza de vida", 
@@ -197,6 +237,13 @@ g + scale_y_log10()
 g + scale_x_discrete(breaks = seq(2010, 2018, 3))
 
 ## Pregunta: ¿como resaltar (poner en cursiva/negrita) un unico elemento de la leyenda?
+g + 
+  scale_color_manual("REGION", values = 2:5,
+                     labels = c("Asia del Este & Pacifico", 
+                                "Europa & Asia Central",
+                                "Latinoamerica & Caribe",
+                                expression(bold("Africa subsahariana")))) + # importante: levels(factor(our_data3$Region))
+  theme_minimal()
 
 
 ## 10. Temas -------------------
@@ -213,6 +260,7 @@ library(ggthemes)
 # Economist theme
 g + theme_economist()
 
+
 rladiesBIO_theme <- theme_bw() +
   theme(
     axis.text = element_text(colour = "white"),
@@ -227,7 +275,6 @@ theme_set(rladiesBIO_theme)
 g
 g + theme(legend.position = 'bottom')
 
-
 ## 11. Guardar graficos ---------------------
 
 ggsave(
@@ -241,7 +288,6 @@ ggsave(
 
 
 ## 12. Mapas ------------------------------
-
 # http://rstudio-pubs-static.s3.amazonaws.com/2795_901030c4ef944c7797f39bcdac099d74.html
 library(maptools)
 
