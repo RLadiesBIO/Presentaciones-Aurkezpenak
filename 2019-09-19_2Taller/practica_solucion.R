@@ -238,7 +238,7 @@ g + scale_x_discrete(breaks = seq(2010, 2018, 3))
 
 ## Pregunta: ¿como resaltar (poner en cursiva/negrita) un unico elemento de la leyenda?
 g + 
-  scale_color_manual("REGION", values = 2:5,
+  scale_color_manual("REGION", values = 2:5,                # valores de color
                      labels = c("Asia del Este & Pacifico", 
                                 "Europa & Asia Central",
                                 "Latinoamerica & Caribe",
