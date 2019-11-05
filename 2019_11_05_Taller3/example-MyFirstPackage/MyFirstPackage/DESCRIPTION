@@ -1,0 +1,9 @@
+Package: MyFirstPackage
+Type: Package
+Title: My First Package
+Version: 1.0
+Date: 2017-12-03
+Author: Natalia Vilor-Tejedor
+Maintainer: Natalia Vilor-Tejedor  <natalia.vilortejedor@crg.eu>
+Description: We implemented two functions that calculate the confidence interval and a z.test for normal data with known variance
+License: GPL(>= 2)
