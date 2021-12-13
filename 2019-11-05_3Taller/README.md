@@ -1,3 +1,3 @@
-## Testuak prozesatzen eta bisualizatzen R-rekin
+## Desarrollo de paquetes de R con RStudio
 
-3. Tailerreko materiala Itziar Gonzalez-Dios-en eskutik.
+Material del taller 3 por Natalia Vilor-Tejedor.
