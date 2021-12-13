@@ -22,3 +22,7 @@
 ## 2020
 
 [2020-01-14 Tailerra: Testuak analizatzen eta bisualizatzen R-rekin](https://github.com/RLadiesBIO/Taller4_Testuak_analizatzen)
+
+## 2021
+
+[2021-12-14 Taller: "Taylor y Sailor: diagramas para comparar diferentes simulaciones frente a las observaciones"]()
