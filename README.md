@@ -17,7 +17,7 @@
 
 [2019-09-19 Taller: Visualización de datos, introducción a ggplot2](https://github.com/RLadiesBIO/Presentaciones-Aurkezpenak/tree/master/2019-09-19_2Taller)
 
-[2019-11-05 Taller: Desarrollo de paquetes de R con RStudio](https://github.com/RLadiesBIO/Presentaciones-Aurkezpenak/tree/master/2019-11-05_3Taller)
+[2019-11-05 Taller: Desarrollo de paquetes de R con RStudio](https://github.com/RLadiesBIO/Taller3_Desarrollo_de_paquetes_de_R_RStudio)
 
 ## 2020
 
